@@ -54,3 +54,21 @@ joindf.show()
 |      6|     Prawns Biryani|     4|
 |      7|      Fish Birayani|     4|
 +-------+-------------------+------+
+
+from pyspark.sql.functions import *
+
+finaldf = joindf.withColumn("stats(out of 5)",expr("repeat('*',rating)"))
+finaldf.show()
+
++-------+-------------------+------+---------------+
+|food_id|          food_item|rating|stats(out of 5)|
++-------+-------------------+------+---------------+
+|      1|        Veg Biryani|     5|          *****|
+|      2|     Veg Fried Rice|     3|            ***|
+|      3|    Kaju Fried Rice|     4|           ****|
+|      4|    Chicken Biryani|     4|           ****|
+|      5|Chicken Dum Biryani|     5|          *****|
+|      6|     Prawns Biryani|     4|           ****|
+|      7|      Fish Birayani|     4|           ****|
++-------+-------------------+------+---------------+
+
