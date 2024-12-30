@@ -1,0 +1,59 @@
+rom pyspark.sql.types import *
+from pyspark.sql import *
+from pyspark.sql.functions import *
+
+data = [(1,'Alice',25,'F'),(2,'Bob',40,'M'),(3,'Raj',46,'M'),(4,'Sekar',66,'M'),(5,'Jhon',47,'M'),(6,'Timoty',28,'M'),(7,'Brad',90,'M'),(8,'Rita',34,'F')]
+
+df = spark.createDataFrame(data,['customer_id','name','age','gender'])
+df.show()
+
+#groupdf = df.withColumn("age_group",expr("case when age between 19 and 35 then '19-35' case when age between 36 and 50 then '36-50' case when age > 51 then '51+'  else age end"))
+groupdf = df.withColumn(
+    "age_group",
+    expr(
+        "case when age between 19 and 35 then '19-35' " +
+        "when age between 36 and 50 then '36-50' " +
+        "when age > 51 then '51+' " +
+        "else 'Other' end"
+    )
+)
+groupdf.show()
+
+
+finaldf = groupdf.groupBy('age_group').agg(count('*').alias('count'))
+finaldf.show()
+
+
++-----------+------+---+------+
+|customer_id|  name|age|gender|
++-----------+------+---+------+
+|          1| Alice| 25|     F|
+|          2|   Bob| 40|     M|
+|          3|   Raj| 46|     M|
+|          4| Sekar| 66|     M|
+|          5|  Jhon| 47|     M|
+|          6|Timoty| 28|     M|
+|          7|  Brad| 90|     M|
+|          8|  Rita| 34|     F|
++-----------+------+---+------+
+
++-----------+------+---+------+---------+
+|customer_id|  name|age|gender|age_group|
++-----------+------+---+------+---------+
+|          1| Alice| 25|     F|    19-35|
+|          2|   Bob| 40|     M|    36-50|
+|          3|   Raj| 46|     M|    36-50|
+|          4| Sekar| 66|     M|      51+|
+|          5|  Jhon| 47|     M|    36-50|
+|          6|Timoty| 28|     M|    19-35|
+|          7|  Brad| 90|     M|      51+|
+|          8|  Rita| 34|     F|    19-35|
++-----------+------+---+------+---------+
+
++---------+-----+
+|age_group|count|
++---------+-----+
+|    19-35|    3|
+|    36-50|    3|
+|      51+|    2|
++---------+-----+
