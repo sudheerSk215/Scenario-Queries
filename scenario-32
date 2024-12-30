@@ -18,3 +18,39 @@ df2.show()
 
 joindf = df1.join(df2,df1["food_id"]==df2["food_id"],"inner").select(df1["food_id"],"food_item","rating")
 joindf.show()
+
++-------+-------------------+
+|food_id|          food_item|
++-------+-------------------+
+|      1|        Veg Biryani|
+|      2|     Veg Fried Rice|
+|      3|    Kaju Fried Rice|
+|      4|    Chicken Biryani|
+|      5|Chicken Dum Biryani|
+|      6|     Prawns Biryani|
+|      7|      Fish Birayani|
++-------+-------------------+
+
++-------+------+
+|food_id|rating|
++-------+------+
+|      1|     5|
+|      2|     3|
+|      3|     4|
+|      4|     4|
+|      5|     5|
+|      6|     4|
+|      7|     4|
++-------+------+
+
++-------+-------------------+------+
+|food_id|          food_item|rating|
++-------+-------------------+------+
+|      1|        Veg Biryani|     5|
+|      2|     Veg Fried Rice|     3|
+|      3|    Kaju Fried Rice|     4|
+|      4|    Chicken Biryani|     4|
+|      5|Chicken Dum Biryani|     5|
+|      6|     Prawns Biryani|     4|
+|      7|      Fish Birayani|     4|
++-------+-------------------+------+
