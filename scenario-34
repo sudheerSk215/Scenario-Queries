@@ -1,6 +1,9 @@
 rom pyspark.sql.types import *
 from pyspark.sql import *
 from pyspark.sql.functions import *
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("Scenario-33").getOrCreate()
 
 data = [(1,'Alice',25,'F'),(2,'Bob',40,'M'),(3,'Raj',46,'M'),(4,'Sekar',66,'M'),(5,'Jhon',47,'M'),(6,'Timoty',28,'M'),(7,'Brad',90,'M'),(8,'Rita',34,'F')]
 
