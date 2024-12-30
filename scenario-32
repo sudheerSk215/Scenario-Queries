@@ -1,4 +1,10 @@
 
+from pyspark.sql.types import *
+from pyspark.sql import *
+from pyspark.sql.functions import *
+from pyspark.sql import SparkSession
+
+spark = SparkSession.builder.appName("Scenario-32").getOrCreate()
 
 data = [(1,"Veg Biryani"),(2,"Veg Fried Rice"),(3,"Kaju Fried Rice"),(4,"Chicken Biryani"),(5,"Chicken Dum Biryani"),(6,"Prawns Biryani"),(7,"Fish Birayani")]
 
