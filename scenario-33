@@ -81,4 +81,36 @@ finaldf.show()
 |                  4|
 +-------------------+
 
+from pyspark.sql.functions import *
+from pyspark.sql import *
+from pyspark.sql.types import *
+
+#another way 
+wn = Window.orderBy(desc("number_of_countries"))
+
+rankdf = groupdf.withColumn("rank",row_number().over(wn))
+rankdf.show()
+
+finaldf2 = rankdf.filter(col("rank")==1).drop("rank")
+finaldf2.show()
+
++--------------+-------------------+----+
+|          name|number_of_countries|rank|
++--------------+-------------------+----+
+| Emily Johnson|                  4|   1|
+| Michael Brown|                  3|   2|
+|Jessica Wilson|                  2|   3|
+|   Alex Thomas|                  1|   4|
+|    Chris Gray|                  1|   5|
++--------------+-------------------+----+
+
++-------------+-------------------+
+|         name|number_of_countries|
++-------------+-------------------+
+|Emily Johnson|                  4|
++-------------+-------------------+
+
+
+
+
 
