@@ -70,6 +70,37 @@ mergedf.show()
 |  4|Rachel|  18|  boston|  90|
 +---+------+----+--------+----+
 
+#fill the null value with the mean age of students
+#calculate the mean age
+meanage = mergedf.select(round(mean("age"))).collect()[0][0]
+print(meanage)
+
+filldf = mergedf.na.fill({"age":meanage})
+filldf.show()
+
+#Get the students who are 18 years or older
+filterdf = filldf.filter(col("age")>= 18)
+filterdf.show()
+
+18.0
++---+------+---+--------+----+
+| id|  name|age|    city|code|
++---+------+---+--------+----+
+|  1|  Jhon| 17|  seatle|  82|
+|  2| Maria| 20|  london|  75|
+|  3|   Raj| 18|banglore|  60|
+|  4|Rachel| 18|  boston|  90|
++---+------+---+--------+----+
+
++---+------+---+--------+----+
+| id|  name|age|    city|code|
++---+------+---+--------+----+
+|  2| Maria| 20|  london|  75|
+|  3|   Raj| 18|banglore|  60|
+|  4|Rachel| 18|  boston|  90|
++---+------+---+--------+----+
+
+
 
 
 
