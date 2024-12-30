@@ -4,9 +4,7 @@ from pyspark.sql import *
 from pyspark.sql.functions import *
 from pyspark.sql import SparkSession
 
-
 spark = SparkSession.builder.appName("Scenario-33").getOrCreate()
-
 
 data = [('c00dac11bde74750b4d207b9c182a85f', 'Alex Thomas', 9),('eb6f2d3426694667ae3e79d6274114a4', 'Chris Gray', 2),('3f7b5b8e835d4e1c8b3e12e964a741f3', 'Emily Johnson', 4),('9a345b079d9f4d3cafb2d4c11d20f8ce', 'Michael Brown', 6),('e0a5f57516024de2a231d09de2cbe9d1', 'Jessica Wilson', 3)]
 
@@ -17,4 +15,25 @@ countrydata = [('023fd23615bd4ff4b2ae0a13ed7efec9', 'Bolivia', 2 , 4),('be247f73
 
 countrydf = spark.createDataFrame(countrydata,["id","name","min_size","max_size"])
 countrydf.show()
+
++--------------------+--------------+-----------+
+|                  id|          name|family_size|
++--------------------+--------------+-----------+
+|c00dac11bde74750b...|   Alex Thomas|          9|
+|eb6f2d3426694667a...|    Chris Gray|          2|
+|3f7b5b8e835d4e1c8...| Emily Johnson|          4|
+|9a345b079d9f4d3ca...| Michael Brown|          6|
+|e0a5f57516024de2a...|Jessica Wilson|          3|
++--------------------+--------------+-----------+
+
++--------------------+------------+--------+--------+
+|                  id|        name|min_size|max_size|
++--------------------+------------+--------+--------+
+|023fd23615bd4ff4b...|     Bolivia|       2|       4|
+|be247f73de0f4b2d8...|Cook Islands|       4|       8|
+|3e85ab80a6f84ef3b...|      Brazil|       4|       7|
+|e571e164152c4f7c8...|   Australia|       5|       9|
+|f35a7bb7d44342f7a...|      Canada|       3|       5|
+|a1b5a4b5fc5f46f89...|       Japan|      10|      12|
++--------------------+------------+--------+--------+
 
