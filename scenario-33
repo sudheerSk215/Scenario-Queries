@@ -16,6 +16,9 @@ countrydata = [('023fd23615bd4ff4b2ae0a13ed7efec9', 'Bolivia', 2 , 4),('be247f73
 countrydf = spark.createDataFrame(countrydata,["id","name","min_size","max_size"])
 countrydf.show()
 
+joindf = familydf.join(countrydf, (familydf["family_size"]>=countrydf["min_size"]) & (familydf["family_size"]<=countrydf["max_size"]),"inner").select(familydf["name"],familydf["family_size"],countrydf["name"],"min_size","max_size")
+joindf.show()
+
 +--------------------+--------------+-----------+
 |                  id|          name|family_size|
 +--------------------+--------------+-----------+
@@ -36,4 +39,20 @@ countrydf.show()
 |f35a7bb7d44342f7a...|      Canada|       3|       5|
 |a1b5a4b5fc5f46f89...|       Japan|      10|      12|
 +--------------------+------------+--------+--------+
+
++--------------+-----------+------------+--------+--------+
+|          name|family_size|        name|min_size|max_size|
++--------------+-----------+------------+--------+--------+
+|   Alex Thomas|          9|   Australia|       5|       9|
+|    Chris Gray|          2|     Bolivia|       2|       4|
+| Emily Johnson|          4|     Bolivia|       2|       4|
+| Emily Johnson|          4|Cook Islands|       4|       8|
+| Emily Johnson|          4|      Brazil|       4|       7|
+| Emily Johnson|          4|      Canada|       3|       5|
+| Michael Brown|          6|Cook Islands|       4|       8|
+| Michael Brown|          6|      Brazil|       4|       7|
+| Michael Brown|          6|   Australia|       5|       9|
+|Jessica Wilson|          3|     Bolivia|       2|       4|
+|Jessica Wilson|          3|      Canada|       3|       5|
++--------------+-----------+------------+--------+--------+
 
