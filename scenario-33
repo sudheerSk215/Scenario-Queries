@@ -56,3 +56,29 @@ joindf.show()
 |Jessica Wilson|          3|      Canada|       3|       5|
 +--------------+-----------+------------+--------+--------+
 
+
+from pyspark.sql.functions import *
+
+groupdf = joindf.groupBy(familydf["name"]).agg(count("*").alias("number_of_countries"))
+groupdf.show()
+
++--------------+-------------------+
+|          name|number_of_countries|
++--------------+-------------------+
+|   Alex Thomas|                  1|
+|    Chris Gray|                  1|
+| Emily Johnson|                  4|
+| Michael Brown|                  3|
+|Jessica Wilson|                  2|
++--------------+-------------------+
+
+finaldf = groupdf.agg((max("number_of_countries")).alias("number_of_countries"))
+finaldf.show()
+
++-------------------+
+|number_of_countries|
++-------------------+
+|                  4|
++-------------------+
+
+
